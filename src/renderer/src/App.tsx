@@ -2,8 +2,6 @@ import UpdateChecker from './components/UpdateChecker'
 import electronLogo from './assets/electron.svg'
 
 function App(): React.JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
-
   return (
     <>
       <div className="app-header">
@@ -13,28 +11,10 @@ function App(): React.JSX.Element {
       </div>
 
       <div className="text">
-       Release 1.0.3
+       Release 1.0.4
       </div>
 
       <UpdateChecker />
-
-      <div className="footer-section">
-        <p className="tip">
-          Press <code>F12</code> to open DevTools
-        </p>
-        <div className="actions">
-          <div className="action">
-            <a href="https://electron-vite.org/" target="_blank" rel="noreferrer noopener">
-              📚 Documentation
-            </a>
-          </div>
-          <div className="action">
-            <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-              🔗 Send IPC
-            </a>
-          </div>
-        </div>
-      </div>
     </>
   )
 }
