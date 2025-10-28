@@ -23,11 +23,42 @@ function UpdateChecker(): React.JSX.Element {
   const [downloadProgress, setDownloadProgress] = useState<DownloadProgress | null>(null)
   const [updateDownloaded, setUpdateDownloaded] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [notification, setNotification] = useState<string | null>(null)
+
+  // Show notification helper
+  const showNotification = (message: string): void => {
+    setNotification(message)
+    setTimeout(() => setNotification(null), 5000) // Auto-hide after 5 seconds
+  }
+
+  // Automatic update check on mount
+  useEffect(() => {
+    // Check for updates on app start (after 3 seconds delay)
+    const autoCheckTimer = setTimeout(() => {
+      console.log('Auto-checking for updates...')
+      checkForUpdates(true) // Silent check
+    }, 3000)
+
+    // Set up periodic checks every 2 hours
+    const periodicCheck = setInterval(
+      () => {
+        console.log('Periodic update check...')
+        checkForUpdates(true) // Silent check
+      },
+      2 * 60 * 60 * 1000
+    ) // 2 hours
+
+    return () => {
+      clearTimeout(autoCheckTimer)
+      clearInterval(periodicCheck)
+    }
+  }, [])
 
   useEffect(() => {
     // Register event listeners
     window.api.onUpdateAvailable((info) => {
       console.log('Update available:', info)
+      showNotification(`🎉 New version ${info.version} is available!`)
     })
 
     window.api.onUpdateNotAvailable((info) => {
@@ -42,6 +73,7 @@ function UpdateChecker(): React.JSX.Element {
       console.log('Update downloaded:', info)
       setUpdateDownloaded(true)
       setDownloading(false)
+      showNotification('✅ Update downloaded! Ready to install.')
     })
 
     window.api.onUpdateError((errorMsg) => {
@@ -52,19 +84,29 @@ function UpdateChecker(): React.JSX.Element {
     })
   }, [])
 
-  const checkForUpdates = async (): Promise<void> => {
-    setChecking(true)
+  const checkForUpdates = async (silent = false): Promise<void> => {
+    if (!silent) {
+      setChecking(true)
+    }
     setError(null)
     try {
       const result = await window.api.checkForUpdates()
       setUpdateInfo(result)
       if (result.error) {
         setError(result.error)
+      } else if (!silent && !result.updateAvailable) {
+        showNotification('✅ You have the latest version!')
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to check for updates')
+      const errorMsg = err instanceof Error ? err.message : 'Failed to check for updates'
+      setError(errorMsg)
+      if (!silent) {
+        showNotification(`❌ ${errorMsg}`)
+      }
     } finally {
-      setChecking(false)
+      if (!silent) {
+        setChecking(false)
+      }
     }
   }
 
@@ -102,9 +144,11 @@ function UpdateChecker(): React.JSX.Element {
   return (
     <div className="update-checker">
       <h2>🔄 Software Updates</h2>
+      {/* Notification Toast */}
+      {notification && <div className="notification-toast">{notification}</div>}
       <div className="update-section">
         <button
-          onClick={checkForUpdates}
+          onClick={() => checkForUpdates(false)}
           disabled={checking || downloading}
           className="btn-primary"
         >
