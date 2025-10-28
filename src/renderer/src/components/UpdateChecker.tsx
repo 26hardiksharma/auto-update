@@ -102,21 +102,20 @@ function UpdateChecker(): React.JSX.Element {
   return (
     <div className="update-checker">
       <h2>🔄 Software Updates</h2>
-      
       <div className="update-section">
-        <button 
-          onClick={checkForUpdates} 
+        <button
+          onClick={checkForUpdates}
           disabled={checking || downloading}
           className="btn-primary"
         >
           {checking ? '🔍 Checking...' : '🔍 Check for Updates'}
         </button>
-      </div>      {error && (
+      </div>{' '}
+      {error && (
         <div className="error-message">
           <strong>Error:</strong> {error}
         </div>
       )}
-
       {updateInfo && !error && (
         <div className="update-info">
           <div className="version-info">

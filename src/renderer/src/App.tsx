@@ -1,4 +1,3 @@
-import Versions from './components/Versions'
 import UpdateChecker from './components/UpdateChecker'
 import electronLogo from './assets/electron.svg'
 
