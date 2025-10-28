@@ -13,9 +13,7 @@ function App(): React.JSX.Element {
       </div>
 
       <div className="text">
-        Modern desktop app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
-        &nbsp;featuring automatic updates
+       Release 1.0.3
       </div>
 
       <UpdateChecker />
