@@ -1,4 +1,5 @@
 import Versions from './components/Versions'
+import UpdateChecker from './components/UpdateChecker'
 import electronLogo from './assets/electron.svg'
 
 function App(): React.JSX.Element {
@@ -12,6 +13,9 @@ function App(): React.JSX.Element {
         Build an Electron app with <span className="react">React</span>
         &nbsp;and <span className="ts">TypeScript</span>
       </div>
+
+      <UpdateChecker />
+
       <p className="tip">
         Please try pressing <code>F12</code> to open the devTool
       </p>
