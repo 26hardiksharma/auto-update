@@ -4,10 +4,10 @@
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
   "author": "example.com",
-  "homepage": "https://github.com/SaptanshuWanjari/auto-update",
+  "homepage": "https://github.com/26hardiksharma/auto-update",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SaptanshuWanjari/auto-update.git"
+    "url": "https://github.com/26hardiksharma/auto-update"
   },
   "scripts": {
     "format": "prettier --write .",

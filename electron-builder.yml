@@ -21,7 +21,7 @@ nsis:
 npmRebuild: false
 publish:
   provider: github
-  owner: SaptanshuWanjari
+  owner: 26hardiksharma
   repo: auto-update
   releaseType: release
 electronDownload:
