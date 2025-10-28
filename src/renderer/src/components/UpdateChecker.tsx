@@ -101,19 +101,17 @@ function UpdateChecker(): React.JSX.Element {
 
   return (
     <div className="update-checker">
-      <h2>App Updates</h2>
-
+      <h2>🔄 Software Updates</h2>
+      
       <div className="update-section">
-        <button
-          onClick={checkForUpdates}
+        <button 
+          onClick={checkForUpdates} 
           disabled={checking || downloading}
           className="btn-primary"
         >
-          {checking ? 'Checking...' : 'Check for Updates'}
+          {checking ? '🔍 Checking...' : '🔍 Check for Updates'}
         </button>
-      </div>
-
-      {error && (
+      </div>      {error && (
         <div className="error-message">
           <strong>Error:</strong> {error}
         </div>
@@ -132,17 +130,17 @@ function UpdateChecker(): React.JSX.Element {
 
           {updateInfo.updateAvailable ? (
             <div className="update-available">
-              <p className="update-message">🎉 A new version is available!</p>
+              <p className="update-message">🎉 New version available!</p>
 
               {!updateDownloaded && !downloading && (
                 <button onClick={downloadUpdate} className="btn-success">
-                  Download Update
+                  ⬇️ Download Update
                 </button>
               )}
 
               {downloading && downloadProgress && (
                 <div className="download-progress">
-                  <p>Downloading update...</p>
+                  <p>⏳ Downloading update...</p>
                   <div className="progress-bar">
                     {/* eslint-disable-next-line react/forbid-dom-props */}
                     <div
@@ -161,16 +159,16 @@ function UpdateChecker(): React.JSX.Element {
 
               {updateDownloaded && (
                 <div className="update-ready">
-                  <p className="success-message">✅ Update downloaded and ready to install!</p>
+                  <p className="success-message">✅ Update ready to install!</p>
                   <button onClick={installUpdate} className="btn-install">
-                    Restart and Install
+                    🚀 Restart & Install
                   </button>
                 </div>
               )}
             </div>
           ) : (
             <div className="up-to-date">
-              <p className="success-message">✅ You're running the latest version!</p>
+              <p className="success-message">✅ You have the latest version!</p>
             </div>
           )}
         </div>
